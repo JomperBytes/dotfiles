@@ -816,7 +816,6 @@ require('lazy').setup({
     name = 'catppuccin',
     lazy = false,
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
       require('catppuccin').setup {
         styles = {
           -- comments = { italic = false }, -- Disable italics in comments
