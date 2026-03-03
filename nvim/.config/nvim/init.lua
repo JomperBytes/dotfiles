@@ -84,6 +84,16 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- ~/.dotfiles/nvim/.config/nvim/lua/options.lua (o similar)
+vim.o.autoread = true
+
+-- Crear un autocomando para que Neovim revise si el archivo cambió
+-- cada vez que el cursor se mueva o cambies de ventana
+vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'CursorHoldI', 'FocusGained' }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { '*' },
+})
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
