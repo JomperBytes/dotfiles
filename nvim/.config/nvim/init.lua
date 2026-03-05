@@ -620,6 +620,8 @@ require('lazy').setup({
           },
           staticcheck = true,
           gofumpt = true,
+          completeUnimported = true,
+          usePlaceholders = true,
         },
         -- pyright = {},
         -- rust_analyzer = {},
