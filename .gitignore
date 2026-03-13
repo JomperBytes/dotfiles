@@ -1,4 +1,4 @@
 # ~/.dotfiles/.gitignore
 # Si usas Lazy.nvim, esto se genera solo
 nvim/.config/nvim/lazy-lock.json 
-
+lazy-lock.json
