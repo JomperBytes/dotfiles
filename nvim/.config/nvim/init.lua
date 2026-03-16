@@ -84,6 +84,9 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- Crear el servidor para que Godot pueda enviarle archivos a Neovim
+if vim.fn.has 'mac' == 1 or vim.fn.has 'unix' == 1 then vim.fn.serverstart '/tmp/godot.pipe' end
+
 -- ~/.dotfiles/nvim/.config/nvim/lua/options.lua (o similar)
 vim.o.autoread = true
 
@@ -623,6 +626,7 @@ require('lazy').setup({
           completeUnimported = true,
           usePlaceholders = true,
         },
+        gdscript = {},
         -- pyright = {},
         -- rust_analyzer = {},
         --
@@ -671,7 +675,10 @@ require('lazy').setup({
       --    :Mason
       --
       -- You can press `g?` for help in this menu.
-      local ensure_installed = vim.tbl_keys(servers or {})
+      --local ensure_installed = vim.tbl_keys(servers or {})
+      local ensure_installed = vim.tbl_filter(function(server)
+        return server ~= 'gdscript' -- Filtramos gdscript para que Mason lo ignore
+      end, vim.tbl_keys(servers or {}))
       vim.list_extend(ensure_installed, {
         -- You can add other tools here that you want Mason to install
       })
@@ -897,8 +904,26 @@ require('lazy').setup({
     branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
-      local parsers =
-        { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go', 'gomod', 'gowork', 'gosum' }
+      local parsers = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'go',
+        'gomod',
+        'gowork',
+        'gosum',
+        'godot_resource',
+        'gdshader',
+        'gdscript',
+      }
       require('nvim-treesitter').install(parsers)
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)

@@ -1,5 +1,6 @@
 return {
   'milanglacier/minuet-ai.nvim', --
+  enabled = false,
   dependencies = { 'saghen/blink.cmp' },
   config = function()
     require('minuet').setup {
@@ -15,13 +16,11 @@ return {
       virtualtext = {
         auto_trigger_ft = { '*' },
         keymap = {
-          -- accept whole completion
-          --
-          accept = '<A-y>', -- Atajo interno (puedes no usarlo)
-          accept_line = '<A-l>',
-          next = '<A-n>',
-          prev = '<A-p>',
-          dismiss = '<A-x>',
+          accept = '<C-y>', -- Control + y (Mucho más seguro que Option)
+          accept_line = '<C-l>', -- Control + l
+          next = '<C-n>', -- Control + n
+          prev = '<C-p>', -- Control + p
+          dismiss = '<C-e>', -- Control + e
         },
       },
       trigger = { prefetch_on_insert = true },
